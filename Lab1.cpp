@@ -28,7 +28,7 @@
 #define  NR_TESTS 5
 using namespace std;
 Profiler tema1("selection1");
-void bubblesort(int n,  int v[])
+void bubblesort(int n, int v[])
 {
 	Operation opComp = tema1.createOperation("bubblesort-compSort", n);
 	Operation opAttr = tema1.createOperation("bubblesort-attrSort", n);
@@ -36,7 +36,7 @@ void bubblesort(int n,  int v[])
 	for (int i = 0; i < n; i++)
 	{
 		ok = 0;
-		for (int j = 1; j < n -i; j++)
+		for (int j = 1; j < n - i; j++)
 		{
 			opComp.count();
 
@@ -53,36 +53,36 @@ void bubblesort(int n,  int v[])
 			break;
 	}
 }
-void insertionsort(int n,  int v[])
+void insertionsort(int n, int v[])
 {
 	Operation opComp = tema1.createOperation("insertionsort-compSort", n);
 	Operation opAttr = tema1.createOperation("insertionsort-attrSort", n);
 	int x;
 	for (int i = 1; i < n; i++)
 	{
-		
+
 		opAttr.count();
 		x = v[i];
 		int j = i - 1;
 		opComp.count();
-		while (v[j] > x && j>=0) 
+		while (v[j] > x && j >= 0)
 		{
 			opComp.count();
 			opAttr.count();
-				v[j + 1] = v[j];
-	
-				j = j - 1;	
-		}	
+			v[j + 1] = v[j];
+
+			j = j - 1;
+		}
 		opAttr.count();
 		v[j + 1] = x;
 	}
 
 }
-void selectionsort(int n,int v[])
+void selectionsort(int n, int v[])
 {
 	Operation opComp = tema1.createOperation("selectionsort-compSort", n);
 	Operation opAttr = tema1.createOperation("selectionsort-attrSort", n);
-	for (int i = 0; i<n ; i++)
+	for (int i = 0; i < n; i++)
 	{
 		int max_i = i;
 		for (int j = i + 1; j < n; j++)
@@ -96,13 +96,13 @@ void selectionsort(int n,int v[])
 		if (max_i != i)
 		{
 			opAttr.count(3);
-			
+
 			int aux = v[i];
 			v[i] = v[max_i];
 			v[max_i] = aux;
-			
+
 		}
-}
+	}
 }
 void demo()
 {
@@ -145,11 +145,11 @@ void perf2(int order)
 		for (int test = 0; test < NR_TESTS; test++)
 		{
 			FillRandomArray(v, n, 10, 10000, false, order);
-			
+
 			insertionsort(n, v);
 		}
 	}
-	
+
 
 	tema1.divideValues("insertionsort-attrSort", NR_TESTS);
 	tema1.divideValues("insertionsort-compSort", NR_TESTS);
@@ -181,17 +181,17 @@ void perf(int order)
 		for (int test = 0; test < NR_TESTS; test++)
 		{
 			FillRandomArray(v, n, 10, 10000, false, order);
-			
-for(int j=0;j<n;j++)
-{
-	v1[j] = v[j];
-	v2[j] = v[j];
-}            bubblesort(n, v1);
-insertionsort(n, v);
+
+			for (int j = 0; j < n; j++)
+			{
+				v1[j] = v[j];
+				v2[j] = v[j];
+			}            bubblesort(n, v1);
+			insertionsort(n, v);
 			selectionsort(n, v2);
-	
-			
-			
+
+
+
 		}
 	}
 	tema1.divideValues("bubblesort-attrSort", NR_TESTS);
@@ -204,12 +204,12 @@ insertionsort(n, v);
 
 	tema1.divideValues("selectionsort-attrSort", NR_TESTS);
 	tema1.divideValues("selectionsort-compSort", NR_TESTS);
-tema1.addSeries("SS", "selectionsort-attrSort", "selectionsort-compSort");
+	tema1.addSeries("SS", "selectionsort-attrSort", "selectionsort-compSort");
 
 	tema1.createGroup("attr", "bubblesort-attrSort", "insertionsort-attrSort", "selectionsort-attrSort");
 	tema1.createGroup("comp", "bubblesort-compSort", "insertionsort-compSort", "selectionsort-compSort");
-	
-	tema1.createGroup("total", "BS","IS","SS");
+
+	tema1.createGroup("total", "BS", "IS", "SS");
 
 }
 void perf_all()
@@ -223,14 +223,14 @@ void perf_all()
 }
 int main()
 {
-	
+
 	//demo();
 	//demo2();
    //demo3();
 	//perf_all2();
 	perf_all();
 
-	
+
 
 
 
